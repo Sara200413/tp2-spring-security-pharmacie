@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Médicaments - Pharma Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Médicaments</h1>
+    <div class="msg succes" th:if="${succes}" th:text="${succes}"></div>
+    <div class="msg erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <p sec:authorize="hasRole('ADMIN')">
+        <a class="btn" th:href="@{/medicaments/nouveau}">+ Ajouter un médicament</a>
+    </p>
+    <p sec:authorize="hasRole('CLIENT') and !hasAnyRole('ADMIN','PHARMACIEN')">
+        <span class="badge ok">Lecture seule : seuls les médicaments disponibles sont affichés.</span>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th><th>Nom</th><th>Description</th><th>Prix (DH)</th><th>Stock</th><th>Expiration</th>
+            <th sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">Modifier le stock</th>
+            <th sec:authorize="hasRole('ADMIN')">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${medicaments}"
+            th:classappend="${m.dateExpiration != null and m.dateExpiration.isBefore(today)} ? 'expire'">
+            <td th:text="${m.id}">1</td>
+            <td th:text="${m.nom}">Nom</td>
+            <td th:text="${m.description}">Description</td>
+            <td th:text="${m.prix}">0.00</td>
+            <td>
+                <span th:text="${m.quantiteStock}">0</span>
+                <span class="badge danger" th:if="${m.quantiteStock == 0}">Rupture</span>
+                <span class="badge warn" th:if="${m.quantiteStock > 0 and m.quantiteStock < 10}">Stock faible</span>
+            </td>
+            <td th:text="${m.dateExpiration}">2027-01-01</td>
+
+            <!-- ADMIN + PHARMACIEN : modifier le stock -->
+            <td sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">
+                <form class="ligne" th:action="@{/medicaments/stock/{id}(id=${m.id})}" method="post">
+                    <input class="court" type="number" name="quantite" min="0" th:value="${m.quantiteStock}">
+                    <button class="btn petit" type="submit">OK</button>
+                </form>
+            </td>
+
+            <!-- ADMIN seulement : supprimer -->
+            <td sec:authorize="hasRole('ADMIN')">
+                <form th:action="@{/medicaments/supprimer/{id}(id=${m.id})}" method="post"
+                      onsubmit="return confirm('Supprimer ce médicament ?');">
+                    <button class="btn petit rouge" type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(medicaments)}">
+            <td colspan="8" class="vide">Aucun médicament à afficher.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

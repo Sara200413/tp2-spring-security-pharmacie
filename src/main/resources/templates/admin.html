@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Administration - Pharma Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Administration : utilisateurs</h1>
+    <div class="msg succes" th:if="${succes}" th:text="${succes}"></div>
+    <div class="msg erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <div class="card">
+        <h2>Créer un utilisateur</h2>
+        <form class="ligne" th:action="@{/admin/users/creer}" method="post">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input type="password" name="password" placeholder="Mot de passe (6 car. min.)" required>
+            <select name="roleId" required>
+                <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.nom}">ROLE</option>
+            </select>
+            <button class="btn" type="submit">Créer</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Utilisateur</th><th>Rôles</th><th>État</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.id}">1</td>
+            <td th:text="${u.username}">nom</td>
+            <td><span class="badge" th:each="r : ${u.roles}" th:text="${r.nom}">ROLE</span></td>
+            <td>
+                <span class="badge ok" th:if="${u.enabled}">Actif</span>
+                <span class="badge danger" th:unless="${u.enabled}">Désactivé</span>
+            </td>
+            <td>
+                <form class="ligne" style="display:inline" th:action="@{/admin/users/{id}/activer(id=${u.id})}" method="post">
+                    <button class="btn petit gris" type="submit" th:text="${u.enabled} ? 'Désactiver' : 'Activer'">Activer</button>
+                </form>
+                <form class="ligne" style="display:inline" th:action="@{/admin/users/supprimer/{id}(id=${u.id})}" method="post"
+                      onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                    <button class="btn petit rouge" type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn" th:href="@{/medicaments}">Gérer les médicaments</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Pharma Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Bienvenue, <span sec:authentication="name">utilisateur</span> 👋</h1>
+    <p>Vos rôles :
+        <span class="badge" th:each="a : ${#authentication.authorities}" th:text="${a.authority}">ROLE</span>
+    </p>
+
+    <div class="grille">
+        <a class="tuile" th:href="@{/medicaments}" sec:authorize="hasAnyRole('ADMIN','PHARMACIEN','CLIENT')">
+            <strong>💊 Médicaments</strong>
+            Consulter les médicaments et les stocks.
+        </a>
+        <a class="tuile" th:href="@{/ventes}" sec:authorize="hasAnyRole('ADMIN','PHARMACIEN','CAISSIER')">
+            <strong>🧾 Ventes</strong>
+            Enregistrer une vente.
+        </a>
+        <a class="tuile" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">
+            <strong>⚙️ Administration</strong>
+            Gérer les utilisateurs.
+        </a>
+    </div>
+</div>
+</body>
+</html>

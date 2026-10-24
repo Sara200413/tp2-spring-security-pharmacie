@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accès refusé - Pharma Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>⛔ Accès refusé (403)</h1>
+        <p>Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+        <p>Votre rôle :
+            <span class="badge danger" th:each="a : ${#authentication.authorities}" th:text="${a.authority}">ROLE</span>
+        </p>
+        <a class="btn" th:href="@{/}">← Retour à l'accueil</a>
+    </div>
+</div>
+</body>
+</html>

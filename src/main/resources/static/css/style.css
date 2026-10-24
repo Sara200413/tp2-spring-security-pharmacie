@@ -1,0 +1,42 @@
+body { font-family: Segoe UI, Arial, sans-serif; margin: 0; background: #f4f7fb; color: #1f2937; }
+.navbar { background: #1e3a8a; padding: 14px 28px; display: flex; gap: 22px; align-items: center; }
+.navbar .brand { color: #fff; font-weight: 700; font-size: 18px; margin-right: 20px; }
+.navbar a { color: #dbeafe; text-decoration: none; font-weight: 500; }
+.navbar a:hover { color: #fff; text-decoration: underline; }
+.navbar .spacer { flex: 1; }
+.navbar .user { color: #fff; font-size: 14px; }
+.navbar form.logout { margin: 0; }
+.btn-logout { background: #ef4444; color: #fff; border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+.container { max-width: 1100px; margin: 28px auto; padding: 0 20px; }
+h1 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 20px; }
+th { background: #e0e7ff; text-align: left; }
+th, td { padding: 10px 12px; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+tr.expire td { background: #fee2e2; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #dbeafe; color: #1e40af; margin: 1px 2px; }
+.badge.danger { background: #fecaca; color: #991b1b; }
+.badge.ok { background: #d1fae5; color: #065f46; }
+.badge.warn { background: #fef3c7; color: #92400e; }
+.btn { background: #1e3a8a; color: #fff; padding: 8px 14px; border: none; border-radius: 6px; text-decoration: none; cursor: pointer; font-size: 14px; display: inline-block; }
+.btn.gris { background: #64748b; }
+.btn.rouge { background: #dc2626; }
+.btn.petit { padding: 4px 10px; font-size: 12px; }
+.card { background: #fff; padding: 22px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 18px; }
+.card h2 { margin-top: 0; font-size: 17px; color: #1e3a8a; }
+.grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.grille a.tuile { background: #fff; padding: 22px; border-radius: 10px; text-decoration: none; color: #1f2937; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.grille a.tuile:hover { box-shadow: 0 3px 10px rgba(0,0,0,.15); }
+.grille .tuile strong { display: block; font-size: 17px; margin-bottom: 6px; color: #1e3a8a; }
+form.ligne { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 0; }
+input, select { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
+input.court { width: 80px; }
+label { display: block; font-weight: 600; margin: 12px 0 4px; }
+.formulaire input, .formulaire select { width: 100%; box-sizing: border-box; }
+.msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+.msg.succes { background: #d1fae5; color: #065f46; }
+.msg.erreur { background: #fee2e2; color: #991b1b; }
+.login-box { max-width: 380px; margin: 70px auto; background: #fff; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.12); }
+.login-box h1 { text-align: center; font-size: 22px; color: #1e3a8a; }
+.login-box .btn { width: 100%; margin-top: 18px; padding: 11px; }
+.aide { margin-top: 20px; font-size: 12px; color: #64748b; background: #f1f5f9; padding: 10px; border-radius: 6px; }
+.vide { color: #6b7280; font-style: italic; }

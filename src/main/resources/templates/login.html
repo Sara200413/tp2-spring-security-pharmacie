@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Pharma Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h1>💊 Pharma Security</h1>
+    <div class="msg erreur" th:if="${param.error}">Nom d'utilisateur ou mot de passe incorrect.</div>
+    <div class="msg succes" th:if="${param.logout}">Vous êtes déconnecté.</div>
+
+    <!-- Le formulaire envoie un POST vers /login, géré par Spring Security (token CSRF ajouté par th:action) -->
+    <form th:action="@{/login}" method="post" class="formulaire">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" required autofocus>
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
+        <button class="btn" type="submit">Se connecter</button>
+    </form>
+
+    <div class="aide">
+        Comptes de test : admin / admin123 &bull; pharma / pharma123 &bull; caisse / caisse123 &bull; client / client123
+    </div>
+</div>
+</body>
+</html>

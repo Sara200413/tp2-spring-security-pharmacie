@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <span class="brand">💊 Pharma Security</span>
+    <a th:href="@{/}">Accueil</a>
+    <!-- sec:authorize : le lien n'apparaît que si l'utilisateur a le bon rôle -->
+    <a th:href="@{/medicaments}" sec:authorize="hasAnyRole('ADMIN','PHARMACIEN','CLIENT')">Médicaments</a>
+    <a th:href="@{/ventes}" sec:authorize="hasAnyRole('ADMIN','PHARMACIEN','CAISSIER')">Ventes</a>
+    <a th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">Administration</a>
+    <span class="spacer"></span>
+    <span class="user">👤 <span sec:authentication="name">utilisateur</span></span>
+    <!-- La déconnexion doit être un POST (protection CSRF) -->
+    <form th:action="@{/logout}" method="post" class="logout">
+        <button class="btn-logout" type="submit">Déconnexion</button>
+    </form>
+</nav>
+</body>
+</html>
